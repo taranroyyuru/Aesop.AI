@@ -7,6 +7,9 @@ from datetime import datetime
 import reflex as rx
 from PIL import Image
 
+from aesop.frontend.components.footer import index as footer
+from aesop.frontend.components.header import index as header
+from aesop.frontend.utils import BaseState
 from aesop.models.story_card import StoryCard
 
 
@@ -284,7 +287,7 @@ def top_story_section() -> rx.Component:
     )
 
 
-def index() -> rx.Component:
+def home() -> rx.Component:
     return rx.vstack(
         rx.container(
             rx.heading("Create Your Own Stories!", size="lg"),
@@ -338,4 +341,14 @@ def index() -> rx.Component:
         ),
         width="100%",
         spacing="4",
+    )
+
+
+@rx.page(on_load=BaseState.get_configs)
+def index() -> rx.Component:
+    return rx.container(
+        header(),
+        home(),
+        footer(),
+        padding="0",
     )

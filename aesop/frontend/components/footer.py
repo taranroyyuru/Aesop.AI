@@ -30,6 +30,7 @@ def socials() -> rx.Component:
 
 def index() -> rx.Component:
     return rx.el.footer(
+        rx.divider(margin="0 0 1em 0"),
         rx.vstack(
             rx.flex(
                 rx.vstack(
@@ -41,6 +42,10 @@ def index() -> rx.Component:
                             weight="bold",
                         ),
                         align_items="center",
+                        on_click=rx.redirect("/"),
+                        _hover={
+                            "cursor": "pointer",
+                        },
                     ),
                     rx.text(
                         "© 2024 Aesop, Inc",
