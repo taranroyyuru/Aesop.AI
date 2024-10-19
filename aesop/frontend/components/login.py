@@ -1,6 +1,7 @@
 import reflex as rx
 from reflex_clerk import (
     clerk_provider,
+    redirect_to_sign_in,
     sign_in_button,
     signed_in,
     signed_out,
@@ -8,7 +9,9 @@ from reflex_clerk import (
 )
 
 
-def index() -> rx.Component:
+def index(redirect_to_signin: bool = False) -> rx.Component:
+    if redirect_to_signin:
+        return clerk_provider(signed_out(redirect_to_sign_in()))
     return clerk_provider(
         signed_in(
             rx.hstack(
