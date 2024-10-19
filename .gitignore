@@ -136,3 +136,5 @@ var/
 venv.bak/
 venv/
 wheels/
+aesop/backend/secret_key.py
+
