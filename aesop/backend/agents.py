@@ -5,6 +5,9 @@ def audio_agent(text):
 	# 
 	pass
 
+def audio_agent():
+	pass
+
 def text_agent():
 	pass
 
