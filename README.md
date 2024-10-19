@@ -24,3 +24,10 @@ uv pip freeze > requirements.txt
 uv pip uninstall <package-name>
 uv pip freeze > requirements.txt
 ```
+
+## run app
+
+```bash
+# start application
+reflex run
+```

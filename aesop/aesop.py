@@ -8,7 +8,7 @@ from rxconfig import config
 class State(rx.State):
     """The app state."""
 
-    ...
+    pass
 
 
 def index() -> rx.Component:
