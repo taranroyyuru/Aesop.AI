@@ -2,6 +2,8 @@
 
 import reflex as rx
 
+from aesop.frontend.components.footer import index as footer
+from aesop.frontend.components.header import index as header
 from rxconfig import config
 
 
@@ -14,6 +16,7 @@ class State(rx.State):
 def index() -> rx.Component:
     # Welcome Page (Index)
     return rx.container(
+        header(),
         rx.color_mode.button(position="top-right"),
         rx.vstack(
             rx.heading("Welcome to Reflex!", size="9"),
@@ -30,8 +33,10 @@ def index() -> rx.Component:
             spacing="5",
             justify="center",
             min_height="85vh",
+            background_color="green",
         ),
-        rx.logo(),
+        footer(),
+        padding="0",
     )
 
 
