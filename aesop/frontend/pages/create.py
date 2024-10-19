@@ -1,14 +1,17 @@
 """Create page."""
 
-# TODO: on submit -> submit the form (call api)
+import random
+from datetime import datetime
 
 import reflex as rx
 from PIL import Image
 
-from aesop.backend.generate_story import generate_story, generate_story_image
+from aesop.backend.dboperations import add_story
+from aesop.backend.generate_story import generate_story, generate_story_image_hyperbolic
 from aesop.frontend.components.footer import index as footer
 from aesop.frontend.components.header import index as header
 from aesop.frontend.utils import BaseState
+from aesop.models.story_card import StoryCard
 
 
 class State(rx.State):
@@ -36,13 +39,29 @@ class State(rx.State):
             form_data["character"], form_data["description"], form_data["reading_level"]
         )
 
-        res = generate_story_image(
-            "cartoon spiderman with glasses teaching biology in a classroom"
+        image_description = [content.image_description for content in story.content]
+        image_urls = []
+
+        for description in image_description:
+            image_urls.append(generate_story_image_hyperbolic(description))
+
+        story_body = [content.story for content in story.content]
+        story_id = random.randint(1, 10000)
+
+        add_story(
+            story=StoryCard(
+                story_id=story_id,
+                date=datetime.now(),
+                author="test author",
+                title=story.title,
+                subject=story.subject,
+                image_urls="|".join(image_urls),
+                story_body="|".join(story_body),
+                description=form_data.get("description"),
+                reading_level=form_data.get("reading_level"),
+            )
         )
 
-        return
-
-        story_id = "test"
         return rx.redirect(f"/story/{story_id}")
 
     @rx.var

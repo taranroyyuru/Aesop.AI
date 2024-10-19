@@ -100,6 +100,7 @@ ENV/
 MANIFEST
 __pycache__/
 __pypackages__/
+aesop/backend/secret_key.py
 assets/external/
 build/
 celerybeat-schedule
@@ -136,5 +137,3 @@ var/
 venv.bak/
 venv/
 wheels/
-aesop/backend/secret_key.py
-

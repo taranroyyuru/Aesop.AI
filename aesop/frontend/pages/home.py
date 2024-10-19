@@ -21,8 +21,8 @@ def story_card_to_dict(story_card: StoryCard) -> dict:
         "author": story_card.author,
         "subject": story_card.subject,
         "reading_level": story_card.reading_level,
-        "image_url": story_card.image_url,
-        "story_url": story_card.story_url,
+        "image_urls": story_card.image_urls,
+        "story_body": story_card.story_body,
     }
 
 
@@ -38,8 +38,9 @@ class State(rx.State):
                     author="Story author",
                     subject="Story subject",
                     reading_level="Story reading level",
-                    image_url="https://picsum.photos/200",
-                    story_url="Story URL",
+                    image_urls="https://picsum.photos/200",
+                    story_id="Story ID",
+                    story_body="Story body",
                 )
             )
         ] * 10
@@ -55,8 +56,9 @@ class State(rx.State):
                     author="Story author",
                     subject="Story subject",
                     reading_level="Story reading level",
-                    image_url="https://picsum.photos/200",
-                    story_url="Story URL",
+                    image_urls="https://picsum.photos/200",
+                    story_id="Story ID",
+                    story_body="Story body",
                 )
             )
         ] * 10
@@ -68,7 +70,7 @@ def story_card(story_data: dict) -> rx.Component:
     author = rx.heading(f"{story_data['author']}", padding="0", size="3")
 
     story_image = rx.image(
-        src=story_data["image_url"],
+        src=story_data["image_urls"],
         alt=str(story_data["title"]),
         height="150px",
         width="100%",

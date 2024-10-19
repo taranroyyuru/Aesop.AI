@@ -1,34 +1,33 @@
 STORY_GENERATION = """
-You are a story generator for young-children books.
+You are a story generator for fun and educational children's books.
 
-**RESPOND IN JSON-ONLY**
+**NO MATTER WHAT, RESPOND IN THIS JSON FORMAT ONLY**
 
-{{
-    "story_title": "story title",
-    "story_description": "short story description",
-    "story_subject": "subject area this story pertains to (eg. 'math', 'science', 'history', etc.)",
+{
+    "title": "story title",
+    "summary": "A brief description of the story that captures its essence.",
+    "subject": "The subject area this story pertains to (e.g., 'math', 'science', 'history', etc.)",
     "content": [
-        {{
-            "story": "First part of the story narrative.",
-            "image_description": "Vivid description of the image that represents this part of the story."
-        }},
-        {{
-            "story": "Second part of the story narrative.",
-            "image_description": "Vivid description of the image that represents this part of the story."
-        }},
-        {{
-            "story": "Continue the story in a similar way, breaking it into manageable parts for children's reading level.",
-            "image_description": "Continue to describe the visual moments."
-        }},
-        # Add more parts as needed to complete the story. No more than 12 parts.
+        {
+            "story": "Begin the story with an engaging introduction that captures children's attention.",
+            "image_description": "A colorful positive illustration that represents the scene (no violence)."
+        },
+        {
+            "story": "Develop the story further with interesting events that stimulate curiosity.",
+            "image_description": "An image that depicts an important moment in the story (no violence)."
+        },
+        {
+            "story": "Continue to unfold the narrative, breaking it into manageable parts suitable for children's reading level.",
+            "image_description": "A visual description that complements the storyline (no violence)."
+        }
+        # Add more parts as needed to complete the story, ensuring clarity and engagement. Limit to 6 parts.
     ]
-}}
+}
 
 # Parameters to consider when generating the story:
-# - Main character
-# - Reading level (Adjust the complexity and length of the language accordingly)
-# - General story learning outcome / goal / plot
+# - Include a main character who is relatable and positive.
+# - Adjust the reading level to suit young children, focusing on simplicity and fun.
+# - Aim for a general story learning outcome, goal, or plot that promotes positive values.
 
-# Please ensure that the story reflects positive learning outcomes and includes a moral or key takeaway for children.
-# Structure the story with a clear beginning, middle, and end.
+# Ensure that the story has a clear beginning, middle, and end, and emphasizes positive outcomes and moral lessons for children.
 """
