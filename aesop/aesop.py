@@ -1,10 +1,13 @@
-"""Welcome to Reflex! This file outlines the steps to create a basic app."""
+"""Main app page."""
 
 import reflex as rx
 from reflex_clerk import install_signin_page
 
 from aesop.frontend.components.footer import index as footer
 from aesop.frontend.components.header import index as header
+from aesop.frontend.pages.create import index as create
+from aesop.frontend.pages.home import index as home
+from aesop.frontend.pages.talk import index as talk
 from config import get_config
 from rxconfig import config
 
@@ -20,25 +23,7 @@ class State(rx.State):
 def index() -> rx.Component:
     return rx.container(
         header(),
-        # login(),
-        rx.color_mode.button(position="top-right"),
-        rx.vstack(
-            rx.heading("Welcome to Reflex!", size="9"),
-            rx.text(
-                "Get started by editing ",
-                rx.code(f"{config.app_name}/{config.app_name}.py"),
-                size="5",
-            ),
-            rx.link(
-                rx.button("Check out our docs!"),
-                href="https://reflex.dev/docs/getting-started/introduction/",
-                is_external=True,
-            ),
-            spacing="5",
-            justify="center",
-            min_height="85vh",
-            background_color="green",
-        ),
+        home(),
         footer(),
         padding="0",
     )
@@ -54,4 +39,6 @@ app = rx.App(  # pylint: disable=E1102
 )
 
 app.add_page(index)
+app.add_page(create)
+app.add_page(talk)
 install_signin_page(app)
