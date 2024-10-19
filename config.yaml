@@ -1,0 +1,3 @@
+clerk_config:
+  clerk_publishable_key: "pk_test_Z2xhZC1maXJlZmx5LTEyLmNsZXJrLmFjY291bnRzLmRldiQ"
+  clerk_secret_key: "sk_test_B6nGT0qYZdbXE4BAaue419MY98xZK6RNesgiGYzgxZ"
