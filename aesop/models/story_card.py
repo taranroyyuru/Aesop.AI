@@ -1,14 +1,16 @@
 from datetime import datetime
 
-from pydantic import BaseModel
 
+import reflex
 
-class StoryCard(BaseModel):
+class StoryCard(reflex.Model, table=True):
     title: str
     description: str
     date: datetime
     author: str
     subject: str
     reading_level: str
-    image_url: str
-    story_url: str
+    image_urls:str
+    story_id:str
+    # jsonstr
+    story_body:str
