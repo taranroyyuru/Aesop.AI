@@ -26,6 +26,7 @@ def index() -> rx.Component:
         home(),
         footer(),
         padding="0",
+        max_width="100vw",
     )
 
 
