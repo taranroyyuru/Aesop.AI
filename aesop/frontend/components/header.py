@@ -12,7 +12,7 @@ def navbar_link(text: str, url: str) -> rx.Component:
     return rx.link(rx.text(text, size="4", weight="medium"), href=url)
 
 
-def index() -> rx.Component:
+def index(redirect_to_signin: bool = False) -> rx.Component:
     return rx.box(
         rx.hstack(
             rx.hstack(
@@ -25,7 +25,7 @@ def index() -> rx.Component:
                 align_items="center",
             ),
             rx.menu.root(
-                login(),
+                login(redirect_to_signin),
                 justify="end",
             ),
             justify="between",

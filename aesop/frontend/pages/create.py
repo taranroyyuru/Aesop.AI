@@ -119,9 +119,9 @@ def form():
 
 
 @rx.page(on_load=BaseState.get_configs)
-def index() -> rx.Component:
+def create_page() -> rx.Component:
     return rx.container(
-        header(),
+        header(redirect_to_signin=True),
         form(),
         footer(),
         padding="0",
