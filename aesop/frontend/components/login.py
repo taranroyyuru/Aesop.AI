@@ -10,7 +10,7 @@ from reflex_clerk import (
 
 
 def index(redirect_to_signin: bool = False) -> rx.Component:
-    if redirect_to_signin:
+    if redirect_to_signin and not signed_in():
         return clerk_provider(signed_out(redirect_to_sign_in()))
     return clerk_provider(
         signed_in(

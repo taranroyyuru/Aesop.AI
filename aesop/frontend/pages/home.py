@@ -345,7 +345,7 @@ def home() -> rx.Component:
 
 
 @rx.page(on_load=BaseState.get_configs)
-def index() -> rx.Component:
+def home_page() -> rx.Component:
     return rx.container(
         header(),
         home(),
