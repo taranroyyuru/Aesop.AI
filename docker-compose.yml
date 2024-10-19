@@ -1,0 +1,17 @@
+services:
+  aesop-ui:
+
+  aesop-vdb:
+    image: chromadb/chroma:latest
+    expose:
+      - "8000:8000"
+  zrok:
+    image: openziti/zrok:latest
+    environment:
+        # Replace with your actual Zrok account token
+        ZROK_TOKEN: "your_zrok_token"
+        ZROK_TARGET: "your_app:80"
+        volumes:
+          - zrok_env:/mnt/.zrok
+        restart: unless-stopped
+  
