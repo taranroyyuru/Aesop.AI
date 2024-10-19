@@ -40,6 +40,6 @@ app = rx.App(  # pylint: disable=E1102
 )
 
 app.add_page(index)
-app.add_page(create)
+app.add_page(create, route="/create")
 app.add_page(talk)
 install_signin_page(app)
