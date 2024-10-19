@@ -31,6 +31,11 @@ def index() -> rx.Component:
             justify="between",
             align_items="center",
         ),
+        rx.divider(margin="1em 0 0 0"),
         padding="1em",
         width="100%",
+        on_click=rx.redirect("/"),
+        _hover={
+            "cursor": "pointer",
+        },
     )
