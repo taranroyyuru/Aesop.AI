@@ -1,7 +1,11 @@
 import os
 import google.generativeai as genai
 
+def audio_agent():
+	pass
 
+def text_agent():
+	pass
 
 def image_agent(prompt_text):
 	genai.configure(api_key=os.environ['API_KEY'])
