@@ -1,3 +1,5 @@
 clerk_config:
   clerk_publishable_key: "pk_test_Z2xhZC1maXJlZmx5LTEyLmNsZXJrLmFjY291bnRzLmRldiQ"
   clerk_secret_key: "sk_test_B6nGT0qYZdbXE4BAaue419MY98xZK6RNesgiGYzgxZ"
+llm_config:
+  qrok_api_key: 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

@@ -17,9 +17,9 @@ app = rx.App(  # pylint: disable=E1102
     )
 )
 
+install_signin_page(app)
+
 app.add_page(create_page, route="/create")
 app.add_page(story_page, route="/story")
 app.add_page(talk_page, route="/talk")
-app.add_page(home_page)
-
-install_signin_page(app)
+app.add_page(home_page, route="/")

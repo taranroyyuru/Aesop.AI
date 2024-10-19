@@ -9,8 +9,13 @@ class ClerkConfig(BaseModel):
     clerk_secret_key: str
 
 
+class LLMConfig(BaseModel):
+    qrok_api_key: str
+
+
 class AppConfig(BaseModel):
     clerk_config: ClerkConfig
+    llm_config: LLMConfig
 
 
 # Global variable to store the loaded configuration

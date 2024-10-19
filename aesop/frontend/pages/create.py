@@ -5,6 +5,7 @@
 import reflex as rx
 from PIL import Image
 
+from aesop.backend.generate_story import generate_story, generate_story_image
 from aesop.frontend.components.footer import index as footer
 from aesop.frontend.components.header import index as header
 from aesop.frontend.utils import BaseState
@@ -31,10 +32,17 @@ class State(rx.State):
 
         self.form_data = form_data
 
-        # Call the API or perform your logic here
-        print(form_data)
-        story_id = "test"
+        story = generate_story(
+            form_data["character"], form_data["description"], form_data["reading_level"]
+        )
 
+        res = generate_story_image(
+            "cartoon spiderman with glasses teaching biology in a classroom"
+        )
+
+        return
+
+        story_id = "test"
         return rx.redirect(f"/story/{story_id}")
 
     @rx.var
