@@ -10,14 +10,14 @@ def add_story(story):
 		session.add(
 			StoryCard(title=story['title'],
     description=story['description'],
-    date=datetime.strptime(story['date'], "%Y-%m-%d"),
+    date=story['date'],
     author = story['author'],
     subject = story['subject'],
 
     reading_level =  story['reading_level'],
-    image_urls = json.dumps(story['image_urls']),
+    image_urls = story['image_urls'],
     story_id = story['story_id'],
-	story_body = json.dumps(story['story_body'])
+	story_body = story['story_body']
 		)
 	)
 	
@@ -29,14 +29,16 @@ def row_to_story(row):
 	story['story_body'] = json.loads(story['story_body'])
 	return story
 
+# TODO: account for Array refactor
 def get_story(id):
 	with rx.session() as session:
 		res = session.query(StoryCard)\
 				.filter(StoryCard.story_id == id).first()
 		
-		story = row_to_story(res)
-		return story
+		# story = row_to_story(res)
+		return res
 
+# TODO: account for Array refactor
 def get_latest(n:int):
 	with rx.session() as session:
 		res = session.query(StoryCard)\
