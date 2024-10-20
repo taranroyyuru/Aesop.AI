@@ -1,28 +1,9 @@
-import base64
-from io import BytesIO
-
 import reflex as rx
-from PIL import Image
 
 from aesop.backend.dboperations import get_story
 from aesop.frontend.components.footer import index as footer
 from aesop.frontend.components.header import index as header
-from aesop.frontend.utils import BaseState
 from aesop.models.story_card import StoryCard
-
-
-def base64_to_image(base64_string):
-    image_bytes = base64.b64decode(base64_string)
-    return image_bytes
-
-
-def create_image_from_bytes(image_bytes):
-    # Create a BytesIO object to handle the image data
-    image_stream = BytesIO(image_bytes)
-
-    # Open the image using Pillow (PIL)
-    image = Image.open(image_stream)
-    return image
 
 
 class State(rx.State):
@@ -61,10 +42,10 @@ class State(rx.State):
         return None
 
     @rx.var
-    def story_image_urls(self) -> list[str]:
+    def story_image_urls(self) -> str:
         self.story_data: StoryCard = get_story(self.router.page.params.get("story_id"))
         if self.story_data:
-            return str(self.story_data.image_urls).split("|")
+            return str(self.story_data.image_urls)
         return None
 
     @rx.var
@@ -79,43 +60,58 @@ class State(rx.State):
         self.story_data: StoryCard = get_story(self.router.page.params.get("story_id"))
 
 
-def img64_to_color(img_url: str):
-    # Render an image component
-    return rx.image(src=img_url, width="100px", height="100px")  # Adjust size as needed
+def single_page() -> rx.Component:
+    return rx.center(
+        rx.grid(
+            rx.box(
+                rx.image(
+                    src=State.story_image_urls,
+                    alt="Story image",
+                    width="100%",
+                    height="auto",
+                    object_fit="cover",
+                ),
+                background_color="white",
+                box_shadow="0 4px 10px rgba(0, 0, 0, 0.1)",
+                border_radius="10px",
+                border="1px solid #ddd",
+                height="100%",
+            ),
+            rx.box(
+                rx.text(
+                    State.story_body,
+                    font_size="lg",
+                    text_align="justify",
+                ),
+                display="flex",
+                justify_content="center",
+                align_items="center",
+                background_color="white",
+                box_shadow="0 4px 10px rgba(0, 0, 0, 0.1)",
+                border_radius="10px",
+                border="1px solid #ddd",
+                height="100%",
+                padding="2em",
+            ),
+            style={
+                "gridTemplateColumns": "1fr",
+                "gap": "1em",
+            },
+        ),
+        padding="2em",
+        background_color="#f0f0f0",
+    )
 
 
 def story() -> rx.Component:
     return rx.vstack(
-        rx.heading(State.story_title, size="xl", padding="1em"),
+        rx.heading(State.story_title, size="xl"),
         rx.hstack(
-            rx.heading(State.story_subject, size="md"),
-            rx.heading(State.story_reading_level, size="md"),
-        ),
-        rx.center(
-            rx.grid(
-                State.story_body,
-                style={
-                    "gridTemplateColumns": "1fr",
-                    "gap": "1em",
-                },
-            ),
-            padding="2em",
-            background_color="#f0f0f0",
-        ),
-        rx.cond(
-            (State.story_image_urls is not None),
-            rx.vstack(
-                rx.foreach(
-                    State.story_image_urls,
-                    lambda row: rx.hstack(
-                        rx.foreach(
-                            row,
-                            rx.image,
-                        )
-                    ),
-                ),
+            rx.text(
+                f"{State.story_subject} ({State.story_reading_level} grade level)",
             ),
         ),
+        single_page(),
     )
 
 

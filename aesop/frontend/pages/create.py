@@ -1,13 +1,14 @@
 """Create page."""
 
 import random
+import time
 from datetime import datetime
 
 import reflex as rx
 from PIL import Image
 
 from aesop.backend.dboperations import add_story
-from aesop.backend.generate_story import generate_story, generate_story_image_hyperbolic
+from aesop.backend.generate_story import generate_story, generate_story_image
 from aesop.frontend.components.footer import index as footer
 from aesop.frontend.components.header import index as header
 from aesop.frontend.utils import BaseState
@@ -16,11 +17,11 @@ from aesop.models.story_card import StoryCard
 
 class State(rx.State):
     form_data: dict = {}
-    character_image = Image.open("assets/characters/default.png")
+    character_image = "https://ibb.co/kHB2Btr"  # Image.open("https://ibb.co/kHB2Btr")
 
     def handle_character_change(self, character: str):
         """Handle the character change."""
-        self.character_image = Image.open(self.character_list[character])
+        self.character_image = self.character_list[character]
         self.form_data["character"] = character
 
     def handle_submit(self, form_data: dict):
@@ -39,11 +40,8 @@ class State(rx.State):
             form_data["character"], form_data["description"], form_data["reading_level"]
         )
 
-        image_description = [content.image_description for content in story.content]
-        image_urls = []
-
-        for description in image_description:
-            image_urls.append(generate_story_image_hyperbolic(description))
+        # image_description = [content.image_description for content in story.content]
+        image_urls = generate_story_image(story.general_description)
 
         story_body = [content.story for content in story.content]
         story_id = random.randint(1, 10000)
@@ -55,8 +53,8 @@ class State(rx.State):
                 author="test author",
                 title=story.title,
                 subject=story.subject,
-                image_urls="|".join(image_urls),
-                story_body="|".join(story_body),
+                image_urls=image_urls,
+                story_body=" ".join(story_body),
                 description=form_data.get("description"),
                 reading_level=form_data.get("reading_level"),
             )
@@ -68,14 +66,14 @@ class State(rx.State):
     def character_list(self) -> dict[str, str]:
         """Get the dictionary of characters and their image URLs."""
         return {
-            "Thor": "assets/characters/thor.png",
-            "Batman": "assets/characters/batman.png",
-            "Superman": "assets/characters/superman.png",
-            "Iron-Man": "assets/characters/ironman.png",
-            "Spider-Man": "assets/characters/spiderman.png",
-            "Wonder-Woman": "assets/characters/wonderwoman.png",
-            "Captain America": "assets/characters/captainamerica.png",
-            "Make My Own": "assets/characters/default.png",
+            "Thor": "https://ibb.co/mvYcNYf",
+            "Batman": "https://ibb.co/GJZygyc",
+            "Superman": "https://ibb.co/B25P8HZ",
+            "Iron-Man": "https://ibb.co/KxYr0qt",
+            "Spider-Man": "https://ibb.co/RNh2ZZw",
+            "Wonder-Woman": "https://ibb.co/BgJHZgt",
+            "Captain America": "https://ibb.co/cFbTWX7",
+            "Make My Own": "https://ibb.co/kHB2Btr",
         }
 
     @rx.var

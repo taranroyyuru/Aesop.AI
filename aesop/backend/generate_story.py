@@ -2,6 +2,7 @@ import json
 from typing import List
 
 import requests
+from litellm import AzureOpenAI
 from pydantic import BaseModel, Field
 
 from aesop.backend.llm import LLMApi, LLMModel
@@ -21,6 +22,7 @@ class StoryContent(BaseModel):
 class StoryResponse(BaseModel):
     title: str = Field(..., description="The title of the story.")
     summary: str = Field(..., description="Short story description.")
+    general_description: str = Field(..., description="The generated story.")
     subject: str = Field(
         ...,
         description="Subject area this story pertains to (e.g., 'math', 'science', 'history').",
@@ -64,12 +66,18 @@ def generate_story(
 
 
 def generate_story_image(image_description: str):
-    llm_api = LLMApi(
-        model=LLMModel.GROQ_LLAMA_70B, api_key=config.llm_config.qrok_api_key
+    client = AzureOpenAI(
+        api_version="2024-02-01",
+        azure_endpoint="https://devan-m2gfjbpu-australiaeast.openai.azure.com",
+        api_key="01bf290baa3140eda4340d8b8fb5920e",
     )
 
-    res = llm_api.generate_image(prompt=image_description)
-    return res
+    print("starting call for image")
+    res = client.images.generate(model="dall-e-3", prompt=image_description, n=1)
+
+    image_url = json.loads(res.model_dump_json())["data"][0]["url"]
+    print(image_url)
+    return image_url
 
 
 def generate_story_image_hyperbolic(image_description: str):
@@ -80,7 +88,7 @@ def generate_story_image_hyperbolic(image_description: str):
     }
     data = {
         "model_name": "SDXL1.0-base",
-        "prompt": "",
+        "prompt": image_description,
         "steps": 30,
         "cfg_scale": 5,
         "enable_refiner": False,

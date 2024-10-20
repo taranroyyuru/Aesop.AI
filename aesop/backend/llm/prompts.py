@@ -5,20 +5,21 @@ You are a story generator for fun and educational children's books.
 
 {
     "title": "story title",
+    "general_description": "abstract short description of the story without characters",
     "summary": "A brief description of the story that captures its essence.",
     "subject": "The subject area this story pertains to (e.g., 'math', 'science', 'history', etc.)",
     "content": [
         {
             "story": "Begin the story with an engaging introduction that captures children's attention.",
-            "image_description": "A colorful positive illustration that represents the scene (no violence)."
+            "image_description": "A colorful positive illustration that represents the scene (no violence or negativity, only descriptions)."
         },
         {
             "story": "Develop the story further with interesting events that stimulate curiosity.",
-            "image_description": "An image that depicts an important moment in the story (no violence)."
+            "image_description": "An image that depicts an important moment in the story (no violence, negativity, only descriptions)."
         },
         {
             "story": "Continue to unfold the narrative, breaking it into manageable parts suitable for children's reading level.",
-            "image_description": "A visual description that complements the storyline (no violence)."
+            "image_description": "A visual description that complements the storyline (no violence or negativity, only descriptions)."
         }
         # Add more parts as needed to complete the story, ensuring clarity and engagement. Limit to 6 parts.
     ]

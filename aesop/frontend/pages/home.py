@@ -7,6 +7,7 @@ from datetime import datetime
 import reflex as rx
 from PIL import Image
 
+from aesop.backend.dboperations import get_latest
 from aesop.frontend.components.footer import index as footer
 from aesop.frontend.components.header import index as header
 from aesop.frontend.utils import BaseState
@@ -29,45 +30,48 @@ def story_card_to_dict(story_card: StoryCard) -> dict:
 class State(rx.State):
     @rx.var
     def latest_stories(self) -> list[dict]:
-        return [
-            story_card_to_dict(
-                StoryCard(
-                    title="Story Title",
-                    description="Story description",
-                    date=datetime.now(),
-                    author="Story author",
-                    subject="Story subject",
-                    reading_level="Story reading level",
-                    image_urls="https://picsum.photos/200",
-                    story_id="Story ID",
-                    story_body="Story body",
-                )
-            )
-        ] * 10
+        latest_data = get_latest(20)
 
-    @rx.var
-    def top_stories(self) -> list[dict]:
         return [
             story_card_to_dict(
                 StoryCard(
-                    title="Story Title2222",
+                    title=story.title,
                     description="Story description",
-                    date=datetime.now(),
+                    date=story.date,
                     author="Story author",
-                    subject="Story subject",
-                    reading_level="Story reading level",
-                    image_urls="https://picsum.photos/200",
-                    story_id="Story ID",
+                    subject=story.subject,
+                    reading_level=story.reading_level,
+                    image_urls=story.image_urls,
+                    story_id=story.story_id,
                     story_body="Story body",
                 )
             )
-        ] * 10
+            for story in latest_data
+        ]
+
+    # @rx.var
+    # def top_stories(self) -> list[dict]:
+    #     return [
+    #         story_card_to_dict(
+    #             StoryCard(
+    #                 title="Story Title2222",
+    #                 description="Story description",
+    #                 date=datetime.now(),
+    #                 author="Story author",
+    #                 subject="Story subject",
+    #                 reading_level="Story reading level",
+    #                 image_urls="https://picsum.photos/200",
+    #                 story_id="Story ID",
+    #                 story_body="Story body",
+    #             )
+    #         )
+    #     ] * 10
 
 
 def story_card(story_data: dict) -> rx.Component:
-    title = rx.heading(f"{story_data["title"]}", padding="0", size="4")
+    title = rx.heading(f"{story_data["title"]}", padding="0", size="4", wrap="wrap")
 
-    author = rx.heading(f"{story_data['author']}", padding="0", size="3")
+    # author = rx.heading(f"{story_data['author']}", padding="0", size="3")
 
     story_image = rx.image(
         src=story_data["image_urls"],
@@ -91,7 +95,8 @@ def story_card(story_data: dict) -> rx.Component:
         rx.vstack(
             rx.box(
                 title,
-                author,
+                # author,
+                wrap="wrap",
             ),
             badges,
             padding="1em",
@@ -111,21 +116,21 @@ def story_card(story_data: dict) -> rx.Component:
     )
 
 
-class CreateStoryImage(rx.State):
-    image_path = "assets/characters.jpg"
-    image = Image.open(image_path)
+# class CreateStoryImage(rx.State):
+#     image_path = "https://ibb.co/chy3TDY"
+#     image = Image.open(image_path)
 
 
-class DiscussStoryImage(rx.State):
-    image_path = "assets/talking_characters.jpg"
-    image = Image.open(image_path)
+# class DiscussStoryImage(rx.State):
+#     image_path = "https://ibb.co/BTjMX3F"
+#     image = Image.open(image_path)
 
 
 def top_story_section() -> rx.Component:
 
     create_story_card = rx.card(
         rx.image(
-            src=CreateStoryImage.image,
+            src="https://ibb.co/chy3TDY",
             alt="Create Story",
             object_fit="cover",
             height="100%",
@@ -184,7 +189,7 @@ def top_story_section() -> rx.Component:
 
     talk_story_card = rx.card(
         rx.image(
-            src=DiscussStoryImage.image,
+            src="https://ibb.co/BTjMX3F",
             alt="Discuss Story",
             object_fit="cover",
             height="100%",
@@ -320,27 +325,27 @@ def home() -> rx.Component:
             margin="0 auto",
             padding="1em",
         ),
-        rx.container(
-            rx.heading("Trending Stories", size="lg"),
-            rx.box(
-                rx.hstack(
-                    rx.foreach(
-                        State.top_stories,
-                        story_card,
-                    ),
-                    spacing="4",
-                    padding="1em 0",
-                ),
-                overflow_x="auto",
-                display="flex",
-                max_width="100%",
-                white_space="nowrap",
-            ),
-            max_width="1200px",
-            width="100%",
-            margin="0 auto",
-            padding="1em",
-        ),
+        # rx.container(
+        #     rx.heading("Trending Stories", size="lg"),
+        #     rx.box(
+        #         rx.hstack(
+        #             rx.foreach(
+        #                 State.top_stories,
+        #                 story_card,
+        #             ),
+        #             spacing="4",
+        #             padding="1em 0",
+        #         ),
+        #         overflow_x="auto",
+        #         display="flex",
+        #         max_width="100%",
+        #         white_space="nowrap",
+        #     ),
+        #     max_width="1200px",
+        #     width="100%",
+        #     margin="0 auto",
+        #     padding="1em",
+        # ),
         width="100%",
         spacing="4",
     )

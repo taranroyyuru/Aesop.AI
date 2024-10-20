@@ -54,5 +54,5 @@ class LLMApi:
 
         result = client.images.generate(model="dall-e-3", prompt=prompt, n=1)
 
-        image_url = json.loads(result.model_dump_json())["data"][0]
+        image_url = json.loads(result.model_dump_json())["data"][0]["url"]
         return image_url
