@@ -2,7 +2,6 @@ import reflex as rx
 from aesop.models.story_card import StoryCard
 from datetime import datetime
 import sqlalchemy
-from sqlalchemy import Array, String, Column
 import json
 
 # gets story as dict
@@ -11,7 +10,7 @@ def add_story(story):
 		session.add(
 			StoryCard(title=story['title'],
     description=story['description'],
-    date=datetime.strptime(story['date'], "%Y-%m-%d"),
+    date=story['date'],
     author = story['author'],
     subject = story['subject'],
 
@@ -27,7 +26,7 @@ def add_story(story):
 def row_to_story(row):
 	story = dict(row)
 	print(story)
-	story['story_body'] = json.loads(story['story_body'])['']
+	story['story_body'] = json.loads(story['story_body'])
 	return story
 
 # TODO: account for Array refactor
@@ -36,8 +35,8 @@ def get_story(id):
 		res = session.query(StoryCard)\
 				.filter(StoryCard.story_id == id).first()
 		
-		story = row_to_story(res)
-		return story
+		# story = row_to_story(res)
+		return res
 
 # TODO: account for Array refactor
 def get_latest(n:int):
