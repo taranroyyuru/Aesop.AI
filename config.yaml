@@ -2,7 +2,7 @@ clerk_config:
   clerk_publishable_key: "pk_test_Z2xhZC1maXJlZmx5LTEyLmNsZXJrLmFjY291bnRzLmRldiQ"
   clerk_secret_key: "sk_test_B6nGT0qYZdbXE4BAaue419MY98xZK6RNesgiGYzgxZ"
 llm_config:
-  qrok_api_key:Y
+  qrok_api_key:
 supabase_config:
   supabase_url: https://rmizyvlqtbziaicqgsfj.supabase.co
   supabase_key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJtaXp5dmxxdGJ6aWFpY3Fnc2ZqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyOTM5MzgzMywiZXhwIjoyMDQ0OTY5ODMzfQ.WHym6T6O1O5kgZGJyerjo4DH-i7FuZ39P0lCAhcpuC0
